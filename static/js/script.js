@@ -69,10 +69,8 @@ loadLists()
 
 $(document).on('click', '#burger-menu', function(e) {
   var burgerMenu = document.getElementById("navbarMenuHeroA");
-  if(burgerMenu.className == "navbar-menu") {
-      burgerMenu.className = "navbar-menu is-active";
-  } else {
-      burgerMenu.className = "navbar-menu";
-  }
+  burgerMenu.className == "navbar-menu" 
+  ? burgerMenu.className = "navbar-menu is-active" 
+  : burgerMenu.className = "navbar-menu"
 });
 
