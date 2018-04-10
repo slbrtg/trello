@@ -24,15 +24,19 @@ function displayLists(lists) {
   // Lists should be ordered based on their 'pos' field
   lists.rows = _.sortBy(lists.rows, 'pos');
   lists.rows.forEach(function(list) {
-    var curElem = $('<li>').text(list.name);
+    var listDiv = $('<div>').addClass('hero is-primary');
+    var listCardDiv = $('<div>').addClass('hero-body')
+    var curElem = $('<header>').addClass('title').text(list.name);
     if (list.cards) {
       var innerUl = $('<ul>');
       list.cards.forEach(function(card) {
         innerUl.append($('<li>').text(card));
       });
-      curElem.append(innerUl);
+      listCardDiv.append(curElem);
+      listCardDiv.append(innerUl);
+      listDiv.append(listCardDiv);
     }
-    $('#lists').append(curElem);
+    $('#board').append(listDiv);
   });
 }
 
@@ -57,3 +61,18 @@ loadLists()
     }
 
   });
+
+
+///////////////////////////////////////////////
+// Frontend JQ
+//////////////////////////////////////////////
+
+$(document).on('click', '#burger-menu', function(e) {
+  var burgerMenu = document.getElementById("navbarMenuHeroA");
+  if(burgerMenu.className == "navbar-menu") {
+      burgerMenu.className = "navbar-menu is-active";
+  } else {
+      burgerMenu.className = "navbar-menu";
+  }
+});
+
