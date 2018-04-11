@@ -19,29 +19,6 @@ function loadLists() {
   return $.ajax('/api/lists');
 }
 
-// Example code for displaying lists in the browser
-// function displayLists(lists) {
-//   // Lists should be ordered based on their 'pos' field
-//   lists.rows = _.sortBy(lists.rows, 'pos');
-//   lists.rows.forEach(function(list) {
-//     $('#board-title').text(list.name)
-//     var listDiv = $('<div>').addClass('hero is-primary');
-//     var listCardDiv = $('<div>').addClass('hero-body')
-//     var curElem = $('<header>').addClass('title').text(list.name);
-//     if (list.cards) {
-//       var innerUl = $('<ul>');
-//       list.cards.forEach(function(card) {
-//         innerUl.append($('<li>').text(card));
-//       });
-//       listCardDiv.append(curElem);
-//       listCardDiv.append(innerUl);
-//       listDiv.append(listCardDiv);
-//     }
-//     $('#board').append(listDiv);
-//   });
-// }
-
-
 function displayLists(lists) {
   // Lists should be ordered based on their 'pos' field
   lists.rows = _.sortBy(lists.rows, 'pos');
@@ -65,8 +42,8 @@ function displayLists(lists) {
       '</div>' +
 
 
-      '<div class="hero-foot">' +
-        '<a class="button is-primary is-inverted">' +
+      '<div id="'+ list.name + '-foot" class="hero-foot">' +
+        '<a class="new-card-button button is-primary is-inverted">' +
           '<span>New Card</span>' +
         '</a>' +
       '</div>' +
@@ -75,10 +52,8 @@ function displayLists(lists) {
   });
 }
 
-
-
 loadLists()
-  .then(function(data) {
+  .then((data) => {
     console.log('Lists', data.rows);
     if (data.rows.length) {
       // If some lists are found display them
@@ -97,11 +72,16 @@ loadLists()
         })
     }
 
-  });
-
+});
 
 ///////////////////////////////////////////////
 // Frontend JQ
 //////////////////////////////////////////////
 
+$(document).on('click', '.new-card-button', function(e) {
+  loadLists().then((data) => {
+    console.log("Clicked", data.rows);
+    lists.rows = _.sortBy(lists.rows, 'pos');
+  });
+});
 
