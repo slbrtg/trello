@@ -47,8 +47,8 @@ function displayLists(lists) {
   lists.rows = _.sortBy(lists.rows, 'pos');
   lists.rows.forEach(function(list) {
     $('#main-content').append(
-
-    '<section class="hero is-primary is-medium">' +
+      
+    '<div class="hero is-primary is-large is-narrow column">' +
       '<div class="hero-head">' +
         '<nav class="navbar">' +
           '<div class="container">' +
@@ -56,65 +56,21 @@ function displayLists(lists) {
               '<a class="navbar-item">' +
                 '<h1 id="board-title" class="title">' + list.name + '</h1>' +
               '</a>' +
-              '<span id="burger-menu" class="navbar-burger burger" data-target="navbarMenuHeroA">' +
-                '<span></span>' +
-                '<span></span>' +
-                '<span></span>' +
-              '</span>' +
-            '</div>' +
-            '<div id="navbarMenuHeroA" class="navbar-menu">' +
-              '<div class="navbar-end">' +
-                '<a class="navbar-item is-active">' +
-                  'Home' +
-                '</a>' +
-                '<a class="navbar-item">' +
-                  'Examples' +
-                '</a>' +
-                '<a class="navbar-item">' +
-                  'Documentation' +
-                '</a>' +
-                '<span class="navbar-item">' +
-                  '<a class="button is-primary is-inverted">' +
-                    '<span class="icon">' +
-                      '<i class="fab fa-github"></i>' +
-                   ' </span>'+
-                    '<span>Download</span>' +
-                  '</a>' +
-                '</span>' +
-              '</div>' +
-            '</div>' +
           '</div>' +
         '</nav>' +
       '</div>' +
 
-      
-        '<div class="hero-body">' +
-        '<div class="container has-text-centered">' +
-          '<h1 class="title">' +
-            'Title' +
-          '</h1>' +
-          '<h2 class="subtitle">' +
-            'Subtitle' +
-          '</h2>' +
-        '</div>' +
+      '<div id="'+ list.name + '-body" class="hero-body">' +
+
       '</div>' +
 
 
       '<div class="hero-foot">' +
-        '<nav class="tabs">' +
-          '<div class="container">' +
-            '<ul>' +
-              '<li class="is-active"><a>Overview</a></li>' +
-              '<li><a>Modifiers</a></li>' +
-              '<li><a>Grid</a></li>' +
-              '<li><a>Elements</a></li>' +
-              '<li><a>Components</a></li>' +
-              '<li><a>Layout</a></li>' +
-            '</ul>' +
-          '</div>' +
-        '</nav>' +
+        '<a class="button is-primary is-inverted">' +
+          '<span>New Card</span>' +
+        '</a>' +
       '</div>' +
-    '</section>'
+    '</div>'
     )
   });
 }
@@ -148,10 +104,4 @@ loadLists()
 // Frontend JQ
 //////////////////////////////////////////////
 
-$(document).on('click', '#burger-menu', function(e) {
-  var burgerMenu = document.getElementById("navbarMenuHeroA");
-  burgerMenu.className == "navbar-menu" 
-  ? burgerMenu.className = "navbar-menu is-active" 
-  : burgerMenu.className = "navbar-menu"
-});
 

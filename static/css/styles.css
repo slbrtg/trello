@@ -1,2 +1,5 @@
 /* Your CSS code here */
 /* This file is included on every page. */
+.is-narrow {
+  width: 300px;
+}
