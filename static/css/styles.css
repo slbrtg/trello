@@ -3,3 +3,12 @@
 .is-narrow {
   width: 300px;
 }
+
+.hidden {
+  visibility: hidden;
+}
+
+.new-card-button {
+  margin-left: 75px;
+  margin-top: 12px;
+}

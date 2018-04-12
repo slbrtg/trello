@@ -28,11 +28,15 @@ function displayLists(lists) {
     '<div class="hero is-primary is-large is-narrow column">' +
       '<div class="hero-head">' +
         '<nav class="navbar">' +
-          '<div class="container">' +
+          '<div id="'+ list.name + '-head" class="container">' +
             '<div class="navbar-brand">' +
               '<a class="navbar-item">' +
                 '<h1 id="board-title" class="title">' + list.name + '</h1>' +
               '</a>' +
+            '</div>' +
+            '<a class="new-card-button button is-primary is-inverted">' +
+              '<span>New Card</span>' +
+            '</a>' +
           '</div>' +
         '</nav>' +
       '</div>' +
@@ -43,9 +47,16 @@ function displayLists(lists) {
 
 
       '<div id="'+ list.name + '-foot" class="hero-foot">' +
-        '<a class="new-card-button button is-primary is-inverted">' +
-          '<span>New Card</span>' +
-        '</a>' +
+        '<div class="hidden field"' +
+          '<label class="label">' +
+            '<div class="control">' +
+              '<input class="input" type="text" placeholder="Card Text">' +
+            '</div>' +
+            '<div class="control">' +
+              '<button class="button is-primary is-inverted">Submit</button>' +
+            '</div>' +
+            '<p class="help">Add Card info</p>' +
+        '</div>' +
       '</div>' +
     '</div>'
     )
@@ -81,7 +92,14 @@ loadLists()
 $(document).on('click', '.new-card-button', function(e) {
   loadLists().then((data) => {
     console.log("Clicked", data.rows);
-    lists.rows = _.sortBy(lists.rows, 'pos');
+    var parentId = $('.new-card-button').parent().attr('id');
+    console.log(parentId);
+    data.rows = _.sortBy(data.rows, 'pos');
+    data.rows.forEach((list) => {
+      if (list.name + '-head' === parentId) {
+        console.log('found match');
+      }
+    });
   });
 });
 
