@@ -1,5 +1,19 @@
 /* Your CSS code here */
 /* This file is included on every page. */
+.list-hero {
+  height: 550px;
+  margin-bottom: 25px;
+  margin-left: 25px;
+}
+
+.list-name {
+  margin-left: 25px;
+}
+
+.add-card-field {
+  margin-left: 50px;
+}
+
 .is-narrow {
   width: 300px;
 }
@@ -8,7 +22,6 @@
   visibility: hidden;
 }
 
-.new-card-button {
-  margin-left: 75px;
-  margin-top: 12px;
+#footer-field {
+  margin-left: 350px;
 }

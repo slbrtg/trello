@@ -3,13 +3,11 @@
 // This file is included in every page.
 
 // Example code for creating a list on the server
-function createList(name, pos, cards) {
+function createList(name) {
   return $.ajax('/api/lists', {
     type: 'POST',
     data: {
       name: name,
-      pos: pos,
-      cards: cards
     }
   });
 }
@@ -24,45 +22,40 @@ function displayLists(lists) {
   lists.rows = _.sortBy(lists.rows, 'pos');
   lists.rows.forEach(function(list) {
     $('#main-content').append(
-      
-    '<div class="hero is-primary is-large is-narrow column">' +
-      '<div class="hero-head">' +
-        '<nav class="navbar">' +
-          '<div id="'+ list.name + '-head" class="container">' +
-            '<div class="navbar-brand">' +
-              '<a class="navbar-item">' +
-                '<h1 id="board-title" class="title">' + list.name + '</h1>' +
-              '</a>' +
-            '</div>' +
-            '<a class="new-card-button button is-primary is-inverted">' +
-              '<span>New Card</span>' +
-            '</a>' +
-          '</div>' +
-        '</nav>' +
-      '</div>' +
-
-      '<div id="'+ list.name + '-body" class="hero-body">' +
-
-      '</div>' +
-
-
-      '<div id="'+ list.name + '-foot" class="hero-foot">' +
-        '<div class="hidden field"' +
-          '<label class="label">' +
-            '<div class="control">' +
-              '<input class="input" type="text" placeholder="Card Text">' +
-            '</div>' +
-            '<div class="control">' +
-              '<button class="button is-primary is-inverted">Submit</button>' +
-            '</div>' +
-            '<p class="help">Add Card info</p>' +
+    
+    '<div class="column">' +
+      '<div id="'+ list.name + '-card-field" class="add-card-field field has-addons">' + 
+        '<div class="control">' +
+          '<input id="'+ list.name + '-input" class="input" type="text" placeholder="add task">' +
+        '</div>' +
+        '<div class="control">' +
+          '<a id="'+ list.name + '-button" class="new-card-button button is-primary">Add</a>' +
         '</div>' +
       '</div>' +
-    '</div>'
+
+      '<div class="list-hero hero is-primary is-narrow">' +
+        '<div class="hero-head">' +
+          '<nav class="navbar">' +
+            '<div id="'+ list.name + '-head" class="container list-name">' +
+              '<div class="navbar-brand">' +
+                '<a class="navbar-item">' +
+                  '<h1 id="board-title" class="title">' + list.name + '</h1>' +
+                '</a>' +
+              '</div>' +
+            '</div>' +
+          '</nav>' +
+        '</div>' +
+
+        '<div id="'+ list.name + '-body" class="hero-body">' +
+
+        '</div>' +
+        
+      '</div>'
     )
   });
 }
 
+// Retrieves and loads lists on start
 loadLists()
   .then((data) => {
     console.log('Lists', data.rows);
@@ -89,15 +82,24 @@ loadLists()
 // Frontend JQ
 //////////////////////////////////////////////
 
-$(document).on('click', '.new-card-button', function(e) {
+// add list
+$(document).on('click', '#new-list-button', (e) => {
+  console.log("clicked new-list-button");
+  var newListName = $('#new-list-input').val();
+  newListName !== "" ? createList(newListName) : console.log("new list name is empty");
+  location.reload();
+});
+
+
+// add task
+$(document).on('click', '.new-card-button', (e) => {
+  console.log("clicked");
   loadLists().then((data) => {
-    console.log("Clicked", data.rows);
-    var parentId = $('.new-card-button').parent().attr('id');
-    console.log(parentId);
+    var parentId = $('.new-card-button').parent().parent().attr('id');
     data.rows = _.sortBy(data.rows, 'pos');
     data.rows.forEach((list) => {
-      if (list.name + '-head' === parentId) {
-        console.log('found match');
+      if (list.name + '-card-field' === parentId) {
+        console.log("Match!");
       }
     });
   });
